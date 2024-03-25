@@ -4,6 +4,11 @@
 
 # Sets the minimum CMake version required for this project.
 cmake_minimum_required(VERSION 3.22.1)
+include_directories(../../../includes)
+#set ffmpeg
+set(ffmpeg ${CMAKE_SOURCE_DIR}/../../../jniLibs/${ANDROID_ABI})
+add_library(avcodec SHARED IMPORTED)
+set_target_properties(avcodec PROPERTIES IMPORTED_LOCATION ${ffmpeg}/libavcodec.so)
 
 # Declares the project name. The project name can be accessed via ${ PROJECT_NAME},
 # Since this is the top level CMakeLists.txt, the project name is also accessible
@@ -34,4 +39,5 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 target_link_libraries(${CMAKE_PROJECT_NAME}
         # List libraries link to the target library
         android
+        avcodec
         log)
